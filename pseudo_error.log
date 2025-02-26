@@ -1,0 +1,7 @@
+Error: page.fill: Timeout 30000ms exceeded while waiting for selector "input[name='username']"
+→ Element not found: "input[name='username']"
+→ The HTML structure of the management console may have been updated.
+→ Please verify that the selector is still valid.
+at fill (file:///path/to/login_script.py:15:9)
+at run (file:///path/to/login_script.py:25:5)
+at processTicksAndRejections (node:internal/process/task_queues:96:5)
