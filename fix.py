@@ -18,7 +18,7 @@ DEVELOPER_MESSAGE = """<instruction>
 2. 現在の HTML を確認してなぜエラーが発生しているかを考えてください。
 3. 現在の操作コードを確認してなぜエラーが発生しているかを考えてください。
 4. エラーが発生した理由を明確に説明してください。
-5. 必要な修正を提案してください。
+5. 現在の実行コードを修正してエラーを解決するための修正コードを提案してください。
 </instruction>
 """
 
@@ -75,7 +75,7 @@ def create_chat_completion(client, user_message, developer_message=DEVELOPER_MES
             {"role": "user", "content": f"{user_message}"},
         ],
     )
-    return completion.choices[0].message
+    return completion.choices[0].message.content
 
 
 def main():
@@ -85,16 +85,12 @@ def main():
     with open(log_file_path, "r") as f:
         error_msg = f.read()
 
-    print(error_msg)
-
     html_file_path = os.path.join(
         os.path.dirname(__file__), "pseudo_html.html")
 
     html_content = ""
     with open(html_file_path, "r") as f:
         html_content = f.read()
-
-    print(html_content)
 
     code_list = serach_code()
 
@@ -106,9 +102,9 @@ def main():
 
     response = create_chat_completion(client=client, user_message=user_message)
 
-    # write response to file
     response_file_path = os.path.join(
-        os.path.dirname(__file__), "pseudo_response.txt")
+        os.path.dirname(__file__), "pseudo_response.md")
+
     with open(response_file_path, "w") as f:
         f.write(response)
 
